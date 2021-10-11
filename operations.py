@@ -1,43 +1,43 @@
 import numpy as np
-import cv2 as cv
+import cv2
 
 
 class Operations:
     def get_grayscale(image):
-        return cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+        return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # noise removal
     def remove_noise(image):
-        return cv.medianBlur(image, 5)
+        return cv2.medianBlur(image, 5)
 
     # thresholding
     def thresholding(image):
-        return cv.threshold(image, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)[1]
+        return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
 
     # dilation
     def dilate(image):
         # kernel = np.ones((5, 5), np.uint8)
-        kernel = cv.getStructuringElement(cv.MORPH_RECT, (18, 18))
-        return cv.dilate(image, kernel, iterations=1)
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (18, 18))
+        return cv2.dilate(image, kernel, iterations=1)
 
     # erosion
     def erode(image):
         kernel = np.ones((5, 5), np.uint8)
-        return cv.erode(image, kernel, iterations=1)
+        return cv2.erode(image, kernel, iterations=1)
 
     # opening - erosion followed by dilation
     def opening(image):
         kernel = np.ones((5, 5), np.uint8)
-        return cv.morphologyEx(image, cv.MORPH_OPEN, kernel)
+        return cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)
 
     # canny edge detection
     def canny(image):
-        return cv.Canny(image, 100, 200)
+        return cv2.Canny(image, 100, 200)
 
     # skew correction
     def deskew(image):
         coords = np.column_stack(np.where(image > 0))
-        angle = cv.minAreaRect(coords)[-1]
+        angle = cv2.minAreaRect(coords)[-1]
         if angle < -45:
             angle = -(90 + angle)
         else:
@@ -45,15 +45,15 @@ class Operations:
 
         (h, w) = image.shape[:2]
         center = (w // 2, h // 2)
-        M = cv.getRotationMatrix2D(center, angle, 1.0)
-        rotated = cv.warpAffine(image, M, (w, h), flags=cv.INTER_CUBIC, borderMode=cv.BORDER_REPLICATE)
+        M = cv2.getRotationMatrix2D(center, angle, 1.0)
+        rotated = cv2.warpAffine(image, M, (w, h), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
         return rotated
 
     # template matching
     def match_template(image, template):
-        return cv.matchTemplate(image, template, cv.TM_CCOEFF_NORMED)
+        return cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED)
 
-    def image_resize(image, width=None, height=None, inter=cv.INTER_AREA):
+    def image_resize(image, width=None, height=None, inter=cv2.INTER_AREA):
         # initialize the dimensions of the image to be resized and
         # grab the image size
         dim = None
@@ -79,7 +79,7 @@ class Operations:
             dim = (width, int(h * r))
 
         # resize the image
-        resized = cv.resize(image, dim, interpolation=inter)
+        resized = cv2.resize(image, dim, interpolation=inter)
 
         # return the resized image
         return resized
