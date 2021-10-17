@@ -3,7 +3,7 @@ import numpy as np
 import pytesseract
 from time import time
 from operations import Operations as OP
-from windowcapture import Window_Capture
+from windowcapture import WindowCapture
 
 def_config="--psm 12 --dpi 72"
 
@@ -11,7 +11,7 @@ def_config="--psm 12 --dpi 72"
 # Blocked until I figure out why it's being resized weirdly
 ######
 # loop_time = time()
-# window = Window_Capture("scrcpy")
+# window = WindowCapture("scrcpy")
 # while True:
 #
 #     img = window.get_screen()
@@ -27,7 +27,7 @@ def_config="--psm 12 --dpi 72"
 #         cv2.waitKey(1)
 #         break
 
-file = "/Users/charles.wheeler/Desktop/opencv/Screenshot_20211010-152620.png"
+file = "/Users/charles.wheeler/mygit/pywordfarm/Samples/nuted.png"
 
 root = cv2.imread(file)
 #root = cv2.cv2Color(root, cv2.COLOR_BGR2GRAY)

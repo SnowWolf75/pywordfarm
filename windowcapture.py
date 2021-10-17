@@ -4,7 +4,8 @@ from PIL import ImageGrab
 import pygetwindow
 import cv2 as cv
 
-class Window_Capture:
+
+class WindowCapture:
 
     def __init__(self, win_match):
         win_list = pygetwindow.getAllTitles()
